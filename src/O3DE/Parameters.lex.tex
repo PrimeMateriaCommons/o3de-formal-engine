@@ -1,0 +1,127 @@
+\begin{lexlean}{O3DE.Parameters}
+\useglossary{lexlean.std.bool@1.2.0}
+\useglossary{lexlean.std.nat@1.2.0}
+\useglossary{o3de.titles@1.0.0}
+\title{Open engine and simulation parameters}
+\begin{semanticmodule}
+structure{
+  name: O3DEPhysicsParameters,
+  type_parameters: [],
+  parameters: [],
+  fields: [
+    {name: fixedTimestepUs, type: Nat},
+    {name: maxSubsteps, type: Nat},
+    {name: positionSolverIterations, type: Nat},
+    {name: velocitySolverIterations, type: Nat},
+    {name: linearDampingScaled, type: Nat},
+    {name: angularDampingScaled, type: Nat},
+    {name: maxVelocityScaled, type: Nat}
+  ]
+}
+
+structure{
+  name: O3DEECSParameters,
+  type_parameters: [],
+  parameters: [],
+  fields: [
+    {name: maxComponentsPerEntity, type: Nat},
+    {name: maxEntitiesCapacity, type: Nat},
+    {name: systemServiceSlots, type: Nat}
+  ]
+}
+
+structure{
+  name: O3DEEBusParameters,
+  type_parameters: [],
+  parameters: [],
+  fields: [
+    {name: defaultQueueCapacity, type: Nat},
+    {name: maxHandlersPerBus, type: Nat}
+  ]
+}
+
+definition{
+  name: defaultPhysicsParams,
+  parameters: [],
+  result: O3DEPhysicsParameters,
+  body: (record O3DEPhysicsParameters {fixedTimestepUs := 16666, maxSubsteps := 4, positionSolverIterations := 8, velocitySolverIterations := 2, linearDampingScaled := 50, angularDampingScaled := 50, maxVelocityScaled := 100000})
+}
+
+definition{
+  name: highPrecisionPhysicsParams,
+  parameters: [],
+  result: O3DEPhysicsParameters,
+  body: (record O3DEPhysicsParameters {fixedTimestepUs := 8333, maxSubsteps := 8, positionSolverIterations := 16, velocitySolverIterations := 4, linearDampingScaled := 50, angularDampingScaled := 50, maxVelocityScaled := 100000})
+}
+
+definition{
+  name: defaultECSParams,
+  parameters: [],
+  result: O3DEECSParameters,
+  body: (record O3DEECSParameters {maxComponentsPerEntity := 64, maxEntitiesCapacity := 100000, systemServiceSlots := 32})
+}
+
+definition{
+  name: defaultEBusParams,
+  parameters: [],
+  result: O3DEEBusParameters,
+  body: (record O3DEEBusParameters {defaultQueueCapacity := 4096, maxHandlersPerBus := 1024})
+}
+
+definition{
+  name: maxAccumulatedTimeUs,
+  parameters: [p : O3DEPhysicsParameters],
+  result: Nat,
+  body: (prim multiply (project p maxSubsteps) (project p fixedTimestepUs) : Nat)
+}
+
+definition{
+  name: isSubsteppingStable,
+  parameters: [p : O3DEPhysicsParameters],
+  result: Bool,
+  body: (((4 <=? (project p positionSolverIterations)) && (1 <=? (project p velocitySolverIterations))) && (1 <=? (project p maxSubsteps)))
+}
+
+theorem{
+  name: default_physics_stable,
+  parameters: [],
+  statement: ((isSubsteppingStable (defaultPhysicsParams)) = true),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: high_precision_physics_stable,
+  parameters: [],
+  statement: ((isSubsteppingStable (highPrecisionPhysicsParams)) = true),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: default_max_accum_time,
+  parameters: [],
+  statement: ((maxAccumulatedTimeUs (defaultPhysicsParams)) = 66664),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: high_precision_max_accum_time,
+  parameters: [],
+  statement: ((maxAccumulatedTimeUs (highPrecisionPhysicsParams)) = 66664),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: ecs_capacity_nominal,
+  parameters: [],
+  statement: ((project (defaultECSParams) maxEntitiesCapacity) = 100000),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: ebus_capacity_nominal,
+  parameters: [],
+  statement: ((project (defaultEBusParams) defaultQueueCapacity) = 4096),
+  proof: reflexivity{}
+}
+\end{semanticmodule}
+\end{lexlean}

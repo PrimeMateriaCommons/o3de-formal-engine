@@ -1,0 +1,35 @@
+name: O3DE LexLean Verification and CI Pipeline
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - "src/**"
+      - "language/**"
+      - "lexlean.toml"
+      - "lexlean.lock"
+      - "prismpm.toml"
+      - "lakefile.toml"
+      - "lean-toolchain"
+      - "run_tests.py"
+      - "benchmark_o3de_scaling.py"
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  formal-verification:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: pip install numpy
+
+      - name: Run Full Formal Verification & Benchmark Suite
+        run: python3 run_tests.py

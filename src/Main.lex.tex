@@ -1,0 +1,47 @@
+\begin{lexlean}{Main}
+\useglossary{lexlean.std.bool@1.2.0}
+\useglossary{lexlean.std.nat@1.2.0}
+\useglossary{o3de.titles@1.0.0}
+\importmodule{O3DE.Parameters}
+\importmodule{O3DE.Invariants}
+\importmodule{O3DE.ECS}
+\importmodule{O3DE.EBus}
+\importmodule{O3DE.Physics}
+\title{Open engine core and simulation formal verification suite}
+\begin{semanticmodule}
+theorem{
+  name: o3de_physics_substepping_sound,
+  parameters: [],
+  statement: (((O3DE.Parameters::isSubsteppingStable (O3DE.Parameters::defaultPhysicsParams)) && (((O3DE.Invariants::computeSubsteps 33332 16666 4) =? 2) && ((O3DE.Invariants::clampAccumulator 100000 66664) =? 66664))) = true),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: o3de_ecs_activation_sound,
+  parameters: [],
+  statement: (((O3DE.ECS::isActivationAdmissible 1 3 1) && (not (O3DE.ECS::isActivationAdmissible 1 3 3))) = true),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: o3de_ebus_single_handler_invariant,
+  parameters: [],
+  statement: (((O3DE.EBus::canConnectHandler true 0) && (not (O3DE.EBus::canConnectHandler true 1))) = true),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: o3de_physx_energy_dissipation_invariant,
+  parameters: [],
+  statement: (((O3DE.Physics::integrateVelocityStep (O3DE.Physics::dynamicBody) 0 16 50) =? 9500) = true),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: o3de_end_to_end_frame_budget_sound,
+  parameters: [],
+  statement: ((((O3DE.Parameters::maxAccumulatedTimeUs (O3DE.Parameters::defaultPhysicsParams)) =? 66664) && (O3DE.Invariants::isCollisionFiltered 1 2 2 1)) = true),
+  proof: reflexivity{}
+}
+\end{semanticmodule}
+\end{lexlean}

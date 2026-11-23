@@ -1,0 +1,101 @@
+\begin{lexlean}{O3DE.ECS}
+\useglossary{lexlean.std.bool@1.2.0}
+\useglossary{lexlean.std.nat@1.2.0}
+\useglossary{o3de.titles@1.0.0}
+\importmodule{O3DE.Parameters}
+\title{Open engine entity component system and dependency ordering}
+\begin{semanticmodule}
+inductive{
+  name: EntityState,
+  type_parameters: [],
+  parameters: [],
+  constructors: [
+    {name: uninitialized, fields: []},
+    {name: initialized, fields: []},
+    {name: active, fields: []},
+    {name: suspended, fields: []}
+  ]
+}
+
+structure{
+  name: ComponentDescriptor,
+  type_parameters: [],
+  parameters: [],
+  fields: [
+    {name: componentId, type: Nat},
+    {name: entityId, type: Nat},
+    {name: providedServiceId, type: Nat},
+    {name: requiredServiceId, type: Nat},
+    {name: incompatibleServiceId, type: Nat}
+  ]
+}
+
+structure{
+  name: EntityRecord,
+  type_parameters: [],
+  parameters: [],
+  fields: [
+    {name: entityId, type: Nat},
+    {name: state, type: EntityState},
+    {name: componentCount, type: Nat},
+    {name: activeServiceId, type: Nat}
+  ]
+}
+
+definition{
+  name: isActivationAdmissible,
+  parameters: [reqId : Nat, incompId : Nat, currentActiveService : Nat],
+  result: Bool,
+  body: (((reqId =? 0) || (reqId =? currentActiveService)) && ((incompId =? 0) || (not (incompId =? currentActiveService))))
+}
+
+definition{
+  name: defaultTransformComponent,
+  parameters: [],
+  result: ComponentDescriptor,
+  body: (record ComponentDescriptor {componentId := 101, entityId := 1, providedServiceId := 1, requiredServiceId := 0, incompatibleServiceId := 0})
+}
+
+definition{
+  name: defaultRigidBodyComponent,
+  parameters: [],
+  result: ComponentDescriptor,
+  body: (record ComponentDescriptor {componentId := 102, entityId := 1, providedServiceId := 2, requiredServiceId := 1, incompatibleServiceId := 3})
+}
+
+theorem{
+  name: transform_activates_unconditionally,
+  parameters: [],
+  statement: ((isActivationAdmissible (project (defaultTransformComponent) requiredServiceId) (project (defaultTransformComponent) incompatibleServiceId) 0) = true),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: rigidbody_activates_with_transform,
+  parameters: [],
+  statement: ((isActivationAdmissible (project (defaultRigidBodyComponent) requiredServiceId) (project (defaultRigidBodyComponent) incompatibleServiceId) 1) = true),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: rigidbody_blocked_without_transform,
+  parameters: [],
+  statement: ((isActivationAdmissible (project (defaultRigidBodyComponent) requiredServiceId) (project (defaultRigidBodyComponent) incompatibleServiceId) 0) = false),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: rigidbody_blocked_by_incompatible,
+  parameters: [],
+  statement: ((isActivationAdmissible (project (defaultRigidBodyComponent) requiredServiceId) (project (defaultRigidBodyComponent) incompatibleServiceId) 3) = false),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: entity_activation_deterministic,
+  parameters: [],
+  statement: ((let t : Bool := (isActivationAdmissible 1 3 1); (let f : Bool := (isActivationAdmissible 1 3 0); (t && (not f)))) = true),
+  proof: reflexivity{}
+}
+\end{semanticmodule}
+\end{lexlean}

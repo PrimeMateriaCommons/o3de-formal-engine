@@ -1,0 +1,125 @@
+\begin{lexlean}{O3DE.EBus}
+\useglossary{lexlean.std.bool@1.2.0}
+\useglossary{lexlean.std.nat@1.2.0}
+\useglossary{o3de.titles@1.0.0}
+\importmodule{O3DE.Parameters}
+\title{Open engine event bus messaging and handler dispatch}
+\begin{semanticmodule}
+inductive{
+  name: AddressPolicy,
+  type_parameters: [],
+  parameters: [],
+  constructors: [
+    {name: single, fields: []},
+    {name: idKeyed, fields: []}
+  ]
+}
+
+inductive{
+  name: HandlerPolicy,
+  type_parameters: [],
+  parameters: [],
+  constructors: [
+    {name: singleHandler, fields: []},
+    {name: multiHandler, fields: []}
+  ]
+}
+
+inductive{
+  name: ThreadingPolicy,
+  type_parameters: [],
+  parameters: [],
+  constructors: [
+    {name: lockless, fields: []},
+    {name: mutexSecured, fields: []}
+  ]
+}
+
+structure{
+  name: BusTraits,
+  type_parameters: [],
+  parameters: [],
+  fields: [
+    {name: busId, type: Nat},
+    {name: addressPolicy, type: AddressPolicy},
+    {name: handlerPolicy, type: HandlerPolicy},
+    {name: threadingPolicy, type: ThreadingPolicy}
+  ]
+}
+
+structure{
+  name: HandlerRegistration,
+  type_parameters: [],
+  parameters: [],
+  fields: [
+    {name: handlerId, type: Nat},
+    {name: busId, type: Nat},
+    {name: priority, type: Nat},
+    {name: isOrderEnforced, type: Bool}
+  ]
+}
+
+definition{
+  name: systemNotificationBus,
+  parameters: [],
+  result: BusTraits,
+  body: (record BusTraits {busId := 1, addressPolicy := (ctor AddressPolicy.single), handlerPolicy := (ctor HandlerPolicy.multiHandler), threadingPolicy := (ctor ThreadingPolicy.mutexSecured)})
+}
+
+definition{
+  name: physicsSceneRequestBus,
+  parameters: [],
+  result: BusTraits,
+  body: (record BusTraits {busId := 2, addressPolicy := (ctor AddressPolicy.single), handlerPolicy := (ctor HandlerPolicy.singleHandler), threadingPolicy := (ctor ThreadingPolicy.lockless)})
+}
+
+definition{
+  name: canConnectHandler,
+  parameters: [isSingleHandler : Bool, currentConnectedCount : Nat],
+  result: Bool,
+  body: (if isSingleHandler then (currentConnectedCount =? 0) else true)
+}
+
+definition{
+  name: isHigherPriority,
+  parameters: [prioA : Nat, prioB : Nat],
+  result: Bool,
+  body: (prioB <? prioA)
+}
+
+theorem{
+  name: single_handler_permits_first_connection,
+  parameters: [],
+  statement: ((canConnectHandler true 0) = true),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: single_handler_rejects_second_connection,
+  parameters: [],
+  statement: ((canConnectHandler true 1) = false),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: multi_handler_permits_arbitrary_connections,
+  parameters: [],
+  statement: ((canConnectHandler false 100) = true),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: handler_priority_strict_order,
+  parameters: [],
+  statement: ((isHigherPriority 100 50) = true),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: handler_priority_equal_false,
+  parameters: [],
+  statement: ((isHigherPriority 50 50) = false),
+  proof: reflexivity{}
+}
+\end{semanticmodule}
+\end{lexlean}

@@ -1,0 +1,113 @@
+\begin{lexlean}{O3DE.Invariants}
+\useglossary{lexlean.std.bool@1.2.0}
+\useglossary{lexlean.std.nat@1.2.0}
+\useglossary{o3de.titles@1.0.0}
+\importmodule{O3DE.Parameters}
+\title{Open engine architecture and physics invariants}
+\begin{semanticmodule}
+definition{
+  name: clampAccumulator,
+  parameters: [accumUs : Nat, maxAccumUs : Nat],
+  result: Nat,
+  body: (if (accumUs <=? maxAccumUs) then accumUs else maxAccumUs)
+}
+
+definition{
+  name: computeSubsteps,
+  parameters: [accumUs : Nat, fixedTimestepUs : Nat, maxSteps : Nat],
+  result: Nat,
+  body: (let rawSteps : Nat := (prim quotient accumUs fixedTimestepUs 0 : Nat); (if (rawSteps <=? maxSteps) then rawSteps else maxSteps))
+}
+
+definition{
+  name: computeRemainingAccumulator,
+  parameters: [accumUs : Nat, fixedTimestepUs : Nat, substepsTaken : Nat],
+  result: Nat,
+  body: (prim subtract accumUs (prim multiply substepsTaken fixedTimestepUs : Nat) : Nat)
+}
+
+definition{
+  name: applyVelocityDamping,
+  parameters: [velScaled : Nat, dampingScaled : Nat],
+  result: Nat,
+  body: (prim quotient (prim multiply velScaled (prim subtract 1000 dampingScaled : Nat) : Nat) 1000 0 : Nat)
+}
+
+definition{
+  name: isCollisionFiltered,
+  parameters: [groupA : Nat, maskA : Nat, groupB : Nat, maskB : Nat],
+  result: Bool,
+  body: (((groupA =? maskB) || (maskB =? 0)) && ((groupB =? maskA) || (maskA =? 0)))
+}
+
+theorem{
+  name: clamp_accumulator_bounded,
+  parameters: [],
+  statement: ((clampAccumulator 100000 66664) = 66664),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: clamp_accumulator_within_bound,
+  parameters: [],
+  statement: ((clampAccumulator 33332 66664) = 33332),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: substeps_clamped_at_max,
+  parameters: [],
+  statement: ((computeSubsteps 100000 16666 4) = 4),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: substeps_exact_two,
+  parameters: [],
+  statement: ((computeSubsteps 33332 16666 4) = 2),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: substeps_zero_when_insufficient,
+  parameters: [],
+  statement: ((computeSubsteps 10000 16666 4) = 0),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: remaining_accum_after_two_steps,
+  parameters: [],
+  statement: ((computeRemainingAccumulator 35000 16666 2) = 1668),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: velocity_damping_strictly_dissipative,
+  parameters: [],
+  statement: ((applyVelocityDamping 10000 50) = 9500),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: velocity_damping_zero_limit,
+  parameters: [],
+  statement: ((applyVelocityDamping 0 50) = 0),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: collision_filter_symmetric,
+  parameters: [],
+  statement: ((isCollisionFiltered 1 2 2 1) = true),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: collision_filter_wildcard,
+  parameters: [],
+  statement: ((isCollisionFiltered 1 0 2 0) = true),
+  proof: reflexivity{}
+}
+\end{semanticmodule}
+\end{lexlean}

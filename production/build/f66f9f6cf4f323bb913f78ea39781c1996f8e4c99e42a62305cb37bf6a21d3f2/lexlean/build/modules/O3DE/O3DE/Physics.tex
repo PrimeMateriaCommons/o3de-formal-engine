@@ -1,0 +1,56 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\begin{document}
+\section*{Semantic declarations}
+\subsection*{\texttt{PhysXRigidBody}}
+\noindent Kind: \texttt{structure}.\par
+\noindent Field \texttt{bodyId}: \texttt{Nat}.\par
+\noindent Field \texttt{massGrams}: \texttt{Nat}.\par
+\noindent Field \texttt{isKinematic}: \texttt{Bool}.\par
+\noindent Field \texttt{velocityScaled}: \texttt{Nat}.\par
+\noindent Field \texttt{maxVelocityScaled}: \texttt{Nat}.\par
+\subsection*{\texttt{kinematicBody}}
+\noindent Kind: \texttt{definition}.\par
+\noindent Type: \texttt{PhysXRigidBody}.\par
+\noindent Definition: \texttt{(\{ bodyId := 1, massGrams := 0, isKinematic := true, velocityScaled := 0, maxVelocityScaled := 50000 \} : PhysXRigidBody)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{dynamicBody}}
+\noindent Kind: \texttt{definition}.\par
+\noindent Type: \texttt{PhysXRigidBody}.\par
+\noindent Definition: \texttt{(\{ bodyId := 2, massGrams := 2000, isKinematic := false, velocityScaled := 10000, maxVelocityScaled := 50000 \} : PhysXRigidBody)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{overSpeedBody}}
+\noindent Kind: \texttt{definition}.\par
+\noindent Type: \texttt{PhysXRigidBody}.\par
+\noindent Definition: \texttt{(\{ bodyId := 3, massGrams := 1000, isKinematic := false, velocityScaled := 49990, maxVelocityScaled := 50000 \} : PhysXRigidBody)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{integrateVelocityStep}}
+\noindent Kind: \texttt{definition}.\par
+\noindent Parameters: \texttt{(body : PhysXRigidBody) (accelScaled : Nat) (dtMs : Nat) (dampingScaled : Nat)}.\par
+\noindent Type: \texttt{Nat}.\par
+\noindent Definition: \texttt{(if (body).isKinematic then 0 else (let rawVel : Nat := ((body).velocityScaled + (LexLeanRuntime.quotient ((LexLeanRuntime.multiply (accelScaled) (dtMs) : Nat)) (1000) (0) : Nat)); (let dampedVel : Nat := O3DE.O3DE.Invariants.applyVelocityDamping (rawVel) (dampingScaled); (if (Nat.ble (dampedVel) ((body).maxVelocityScaled)) then dampedVel else (body).maxVelocityScaled))))}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{computeKineticEnergyScaled}}
+\noindent Kind: \texttt{definition}.\par
+\noindent Parameters: \texttt{(massGrams : Nat) (velocityScaled : Nat)}.\par
+\noindent Type: \texttt{Nat}.\par
+\noindent Definition: \texttt{(LexLeanRuntime.quotient ((LexLeanRuntime.multiply (massGrams) ((LexLeanRuntime.multiply (velocityScaled) (velocityScaled) : Nat)) : Nat)) (2000) (0) : Nat)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{kinematic\_velocity\_invariant\_zero}}
+\noindent Kind: \texttt{theorem}.\par
+\noindent Statement: \texttt{(integrateVelocityStep (kinematicBody) (500) (16) (50) = 0)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{dynamic\_velocity\_step\_calculation}}
+\noindent Kind: \texttt{theorem}.\par
+\noindent Statement: \texttt{(integrateVelocityStep (dynamicBody) (0) (16) (50) = 9500)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{velocity\_clamped\_at\_maximum}}
+\noindent Kind: \texttt{theorem}.\par
+\noindent Statement: \texttt{(integrateVelocityStep (overSpeedBody) (2000) (10) (0) = 50000)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{kinetic\_energy\_soundness}}
+\noindent Kind: \texttt{theorem}.\par
+\noindent Statement: \texttt{(computeKineticEnergyScaled (2000) (100) = 10000)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\end{document}

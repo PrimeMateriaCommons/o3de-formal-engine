@@ -1,0 +1,6 @@
+name = "o3de_lexlean_host"
+version = "0.1.0"
+defaultTargets = ["O3DEHost"]
+
+[[lean_lib]]
+name = "O3DEHost"

@@ -1,0 +1,14 @@
+# Timestamped reports archive
+reports/*_20*.md
+reports/*_20*.json
+
+# Lake build artifacts
+.lake/
+lake-packages/
+
+# Bytecode
+__pycache__/
+*.pyc
+
+# Production artifacts (keep published build snapshots)
+production/staging/

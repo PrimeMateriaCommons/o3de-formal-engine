@@ -1,0 +1,61 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\begin{document}
+\section*{Semantic declarations}
+\subsection*{\texttt{EntityState}}
+\noindent Kind: \texttt{inductive}.\par
+\noindent Constructor \texttt{uninitialized}: \texttt{()}.\par
+\noindent Constructor \texttt{initialized}: \texttt{()}.\par
+\noindent Constructor \texttt{active}: \texttt{()}.\par
+\noindent Constructor \texttt{suspended}: \texttt{()}.\par
+\subsection*{\texttt{ComponentDescriptor}}
+\noindent Kind: \texttt{structure}.\par
+\noindent Field \texttt{componentId}: \texttt{Nat}.\par
+\noindent Field \texttt{entityId}: \texttt{Nat}.\par
+\noindent Field \texttt{providedServiceId}: \texttt{Nat}.\par
+\noindent Field \texttt{requiredServiceId}: \texttt{Nat}.\par
+\noindent Field \texttt{incompatibleServiceId}: \texttt{Nat}.\par
+\subsection*{\texttt{EntityRecord}}
+\noindent Kind: \texttt{structure}.\par
+\noindent Field \texttt{entityId}: \texttt{Nat}.\par
+\noindent Field \texttt{state}: \texttt{EntityState}.\par
+\noindent Field \texttt{componentCount}: \texttt{Nat}.\par
+\noindent Field \texttt{activeServiceId}: \texttt{Nat}.\par
+\subsection*{\texttt{isActivationAdmissible}}
+\noindent Kind: \texttt{definition}.\par
+\noindent Parameters: \texttt{(reqId : Nat) (incompId : Nat) (currentActiveService : Nat)}.\par
+\noindent Type: \texttt{Bool}.\par
+\noindent Definition: \texttt{(((Nat.beq (reqId) (0)) || (Nat.beq (reqId) (currentActiveService))) \&\& ((Nat.beq (incompId) (0)) || (!(Nat.beq (incompId) (currentActiveService)))))}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{defaultTransformComponent}}
+\noindent Kind: \texttt{definition}.\par
+\noindent Type: \texttt{ComponentDescriptor}.\par
+\noindent Definition: \texttt{(\{ componentId := 101, entityId := 1, providedServiceId := 1, requiredServiceId := 0, incompatibleServiceId := 0 \} : ComponentDescriptor)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{defaultRigidBodyComponent}}
+\noindent Kind: \texttt{definition}.\par
+\noindent Type: \texttt{ComponentDescriptor}.\par
+\noindent Definition: \texttt{(\{ componentId := 102, entityId := 1, providedServiceId := 2, requiredServiceId := 1, incompatibleServiceId := 3 \} : ComponentDescriptor)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{transform\_activates\_unconditionally}}
+\noindent Kind: \texttt{theorem}.\par
+\noindent Statement: \texttt{(isActivationAdmissible ((defaultTransformComponent).requiredServiceId) ((defaultTransformComponent).incompatibleServiceId) (0) = true)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{rigidbody\_activates\_with\_transform}}
+\noindent Kind: \texttt{theorem}.\par
+\noindent Statement: \texttt{(isActivationAdmissible ((defaultRigidBodyComponent).requiredServiceId) ((defaultRigidBodyComponent).incompatibleServiceId) (1) = true)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{rigidbody\_blocked\_without\_transform}}
+\noindent Kind: \texttt{theorem}.\par
+\noindent Statement: \texttt{(isActivationAdmissible ((defaultRigidBodyComponent).requiredServiceId) ((defaultRigidBodyComponent).incompatibleServiceId) (0) = false)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{rigidbody\_blocked\_by\_incompatible}}
+\noindent Kind: \texttt{theorem}.\par
+\noindent Statement: \texttt{(isActivationAdmissible ((defaultRigidBodyComponent).requiredServiceId) ((defaultRigidBodyComponent).incompatibleServiceId) (3) = false)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{entity\_activation\_deterministic}}
+\noindent Kind: \texttt{theorem}.\par
+\noindent Statement: \texttt{((let t : Bool := isActivationAdmissible (1) (3) (1); (let f : Bool := isActivationAdmissible (1) (3) (0); (t \&\& (!f)))) = true)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\end{document}

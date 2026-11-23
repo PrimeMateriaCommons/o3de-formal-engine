@@ -1,0 +1,350 @@
+{
+  "timestamp": "20261123T002807",
+  "iso_time": "2026-11-23T00:28:07.429474",
+  "toolchain": {
+    "pinned_toolchain": "leanprover/lean4:v4.32.2",
+    "lean_version": "Lean (version 4.32.2, x86_64-unknown-linux-gnu, commit f3b06c705e6c85f5314019d5d3baab0fec5b580c, Release)",
+    "lake_version": "Lake version 5.0.0-src+f3b06c7 (Lean version 4.32.2)",
+    "lexlean_info": {
+      "lexlean": "0.4.3",
+      "language": "1.0",
+      "compiler-semantics": "4bd46ef62ba56a77cb3c6453346671a809ccd665fc1f5334e4b1b9dce01f3245",
+      "lean-toolchain": "leanprover/lean4:v4.32.2"
+    },
+    "prismpm_version": "prismpm 0.5.0"
+  },
+  "suites": [
+    {
+      "id": "TS-01",
+      "name": "Toolchain Pin & Runtime Environment",
+      "target": "lean, lake, lexlean, prismpm",
+      "status": "PASS",
+      "duration": 0.20801741300238064
+    },
+    {
+      "id": "TS-02",
+      "name": "Lean Lake Host Build & Hygiene",
+      "target": "lake build",
+      "status": "PASS",
+      "duration": 0.15971059000003152
+    },
+    {
+      "id": "TS-03",
+      "name": "LexLean Lock Parity & Canonical Configuration",
+      "target": "lexlean lock --check",
+      "status": "PASS",
+      "duration": 0.7018744439992588
+    },
+    {
+      "id": "TS-04",
+      "name": "Semantic IR AST & Module Type Check",
+      "target": "lexlean check",
+      "status": "PASS",
+      "duration": 0.7669783070014091
+    },
+    {
+      "id": "TS-05",
+      "name": "Lean 4 Kernel Formal Verification & Attestation",
+      "target": "lexlean verify",
+      "status": "PASS",
+      "duration": 23.887260960000276
+    },
+    {
+      "id": "TS-06",
+      "name": "Formal Mathematical Invariants & Regime Matrix Audit",
+      "target": "Certified Reflexivity Theorems Audit",
+      "status": "PASS",
+      "duration": 0.0005873830014024861
+    },
+    {
+      "id": "TS-07",
+      "name": "Build & Attestation Artifact Audit",
+      "target": ".lexlean/verified directory audit",
+      "status": "PASS",
+      "duration": 0.001
+    },
+    {
+      "id": "TS-08",
+      "name": "PrismPM Model Framework Compilation & Production Release",
+      "target": "prismpm check && prismpm build",
+      "status": "PASS",
+      "duration": 5.3897786070010625
+    },
+    {
+      "id": "TS-09",
+      "name": "O3DE High-Scale Simulation & Stress Benchmark (INV-O3DE-a-d)",
+      "target": "benchmark_o3de_scaling.py",
+      "status": "PASS",
+      "duration": 0.38759892700909404
+    }
+  ],
+  "lexlean": {
+    "check": {
+      "status": true,
+      "stdout": "checked 9 modules (source f4472a9e74e12b50bb5565101ba34fce410c66d31a10fc2b1cae1d93d0b37182, semantic c9893861c71928dea20de8c32b4779fb26f3f11386d29cd65f35fe355ef399c7)",
+      "source_hash": "f4472a9e74e12b50bb5565101ba34fce410c66d31a10fc2b1cae1d93d0b37182",
+      "semantic_hash": "c9893861c71928dea20de8c32b4779fb26f3f11386d29cd65f35fe355ef399c7",
+      "duration": 0.7669783070014091
+    },
+    "verify": {
+      "status": true,
+      "stdout": "verified 9 modules; attestation ea1af301ba7132fe4e65396fc2c3d2614c67a804cc3ccad6407ba9428a8ebcbc",
+      "modules_verified": 9,
+      "attestation": "ea1af301ba7132fe4e65396fc2c3d2614c67a804cc3ccad6407ba9428a8ebcbc",
+      "duration": 23.887260960000276
+    }
+  },
+  "formal_audit": {
+    "total_theorems": 114,
+    "expected_theorems_count": 35,
+    "missing": [],
+    "theorems": [
+      "O3DEPhysicsParameters",
+      "fixedTimestepUs",
+      "maxSubsteps",
+      "positionSolverIterations",
+      "velocitySolverIterations",
+      "linearDampingScaled",
+      "angularDampingScaled",
+      "maxVelocityScaled",
+      "O3DEECSParameters",
+      "maxComponentsPerEntity",
+      "maxEntitiesCapacity",
+      "systemServiceSlots",
+      "O3DEEBusParameters",
+      "defaultQueueCapacity",
+      "maxHandlersPerBus",
+      "defaultPhysicsParams",
+      "highPrecisionPhysicsParams",
+      "defaultECSParams",
+      "defaultEBusParams",
+      "maxAccumulatedTimeUs",
+      "isSubsteppingStable",
+      "default_physics_stable",
+      "high_precision_physics_stable",
+      "default_max_accum_time",
+      "high_precision_max_accum_time",
+      "ecs_capacity_nominal",
+      "ebus_capacity_nominal",
+      "clampAccumulator",
+      "computeSubsteps",
+      "computeRemainingAccumulator",
+      "applyVelocityDamping",
+      "isCollisionFiltered",
+      "clamp_accumulator_bounded",
+      "clamp_accumulator_within_bound",
+      "substeps_clamped_at_max",
+      "substeps_exact_two",
+      "substeps_zero_when_insufficient",
+      "remaining_accum_after_two_steps",
+      "velocity_damping_strictly_dissipative",
+      "velocity_damping_zero_limit",
+      "collision_filter_symmetric",
+      "collision_filter_wildcard",
+      "EntityState",
+      "uninitialized",
+      "initialized",
+      "active",
+      "suspended",
+      "ComponentDescriptor",
+      "componentId",
+      "entityId",
+      "providedServiceId",
+      "requiredServiceId",
+      "incompatibleServiceId",
+      "EntityRecord",
+      "entityId",
+      "state",
+      "componentCount",
+      "activeServiceId",
+      "isActivationAdmissible",
+      "defaultTransformComponent",
+      "defaultRigidBodyComponent",
+      "transform_activates_unconditionally",
+      "rigidbody_activates_with_transform",
+      "rigidbody_blocked_without_transform",
+      "rigidbody_blocked_by_incompatible",
+      "entity_activation_deterministic",
+      "AddressPolicy",
+      "single",
+      "idKeyed",
+      "HandlerPolicy",
+      "singleHandler",
+      "multiHandler",
+      "ThreadingPolicy",
+      "lockless",
+      "mutexSecured",
+      "BusTraits",
+      "busId",
+      "addressPolicy",
+      "handlerPolicy",
+      "threadingPolicy",
+      "HandlerRegistration",
+      "handlerId",
+      "busId",
+      "priority",
+      "isOrderEnforced",
+      "systemNotificationBus",
+      "physicsSceneRequestBus",
+      "canConnectHandler",
+      "isHigherPriority",
+      "single_handler_permits_first_connection",
+      "single_handler_rejects_second_connection",
+      "multi_handler_permits_arbitrary_connections",
+      "handler_priority_strict_order",
+      "handler_priority_equal_false",
+      "PhysXRigidBody",
+      "bodyId",
+      "massGrams",
+      "isKinematic",
+      "velocityScaled",
+      "maxVelocityScaled",
+      "kinematicBody",
+      "dynamicBody",
+      "overSpeedBody",
+      "integrateVelocityStep",
+      "computeKineticEnergyScaled",
+      "kinematic_velocity_invariant_zero",
+      "dynamic_velocity_step_calculation",
+      "velocity_clamped_at_maximum",
+      "kinetic_energy_soundness",
+      "o3de_physics_substepping_sound",
+      "o3de_ecs_activation_sound",
+      "o3de_ebus_single_handler_invariant",
+      "o3de_physx_energy_dissipation_invariant",
+      "o3de_end_to_end_frame_budget_sound"
+    ]
+  },
+  "summary": {
+    "total": 9,
+    "passed": 9,
+    "failed": 0,
+    "status": "PASS"
+  },
+  "prismpm": {
+    "check_status": true,
+    "build_status": true,
+    "published_hash": "f66f9f6cf4f323bb913f78ea39781c1996f8e4c99e42a62305cb37bf6a21d3f2"
+  },
+  "scaling_benchmark": {
+    "timestamp": "20261123T052839",
+    "iso_time": "2026-11-23T05:28:39.058071+00:00",
+    "all_passed": true,
+    "total_duration_s": 0.38759892700909404,
+    "suites": [
+      {
+        "suite_id": "SUITE-O1",
+        "name": "ECS Topological Dependency Resolution Scaling (N<=10000)",
+        "invariant": "INV-O3DE-a",
+        "passed": true,
+        "duration_s": 0.052012567000929266,
+        "evaluations": [
+          {
+            "N": 100,
+            "success_rate": 1.0,
+            "duration_s": 0.00014345700037665665,
+            "activations_per_sec": 697072.9886826214
+          },
+          {
+            "N": 500,
+            "success_rate": 1.0,
+            "duration_s": 0.000775562999479007,
+            "activations_per_sec": 644692.9525207888
+          },
+          {
+            "N": 2000,
+            "success_rate": 1.0,
+            "duration_s": 0.002908176997152623,
+            "activations_per_sec": 687716.0509687639
+          },
+          {
+            "N": 10000,
+            "success_rate": 1.0,
+            "duration_s": 0.015333278999605682,
+            "activations_per_sec": 652176.2240325221
+          }
+        ]
+      },
+      {
+        "suite_id": "SUITE-O2",
+        "name": "EBus Priority Dispatch & Exclusivity (100k events)",
+        "invariant": "INV-O3DE-b",
+        "passed": true,
+        "single_handler_exclusivity": true,
+        "priority_order_verified": true,
+        "events_per_sec": 1553580.9162011521,
+        "duration_s": 0.06439203600166366
+      },
+      {
+        "suite_id": "SUITE-O3",
+        "name": "Physics Fixed Substepping & Accumulator Clamping",
+        "invariant": "INV-O3DE-c",
+        "passed": true,
+        "duration_s": 8.003399852896109e-05,
+        "evaluations": [
+          {
+            "dt_frame_us": 1000,
+            "substeps_executed": 0,
+            "clamped_accumulator_us": 1000
+          },
+          {
+            "dt_frame_us": 16666,
+            "substeps_executed": 1,
+            "clamped_accumulator_us": 1000
+          },
+          {
+            "dt_frame_us": 33332,
+            "substeps_executed": 2,
+            "clamped_accumulator_us": 1000
+          },
+          {
+            "dt_frame_us": 50000,
+            "substeps_executed": 3,
+            "clamped_accumulator_us": 1002
+          },
+          {
+            "dt_frame_us": 100000,
+            "substeps_executed": 4,
+            "clamped_accumulator_us": 0
+          },
+          {
+            "dt_frame_us": 500000,
+            "substeps_executed": 4,
+            "clamped_accumulator_us": 0
+          },
+          {
+            "dt_frame_us": 1000000,
+            "substeps_executed": 4,
+            "clamped_accumulator_us": 0
+          }
+        ]
+      },
+      {
+        "suite_id": "SUITE-O4",
+        "name": "PhysX Symplectic Energy Dissipation Monotonicity",
+        "invariant": "INV-O3DE-d",
+        "passed": true,
+        "initial_energy_j": 2256.25,
+        "final_energy_j": 0.08763166562207174,
+        "monotonic": true,
+        "dissipated": true,
+        "duration_s": 0.00013427100202534348
+      },
+      {
+        "suite_id": "SUITE-O5",
+        "name": "Collision Filtering Matrix Symmetry Invariant",
+        "passed": true,
+        "evaluations": 10000,
+        "duration_s": 0.013825866000843234
+      },
+      {
+        "suite_id": "SUITE-O6",
+        "name": "Engine Physics Simulation Throughput (500 bodies)",
+        "passed": true,
+        "frames_per_sec": 7787.979880103506,
+        "body_steps_per_sec": 3893989.940051753,
+        "duration_s": 0.2571541530051036
+      }
+    ]
+  }
+}

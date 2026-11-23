@@ -1,0 +1,72 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\begin{document}
+\section*{Semantic declarations}
+\subsection*{\texttt{AddressPolicy}}
+\noindent Kind: \texttt{inductive}.\par
+\noindent Constructor \texttt{single}: \texttt{()}.\par
+\noindent Constructor \texttt{idKeyed}: \texttt{()}.\par
+\subsection*{\texttt{HandlerPolicy}}
+\noindent Kind: \texttt{inductive}.\par
+\noindent Constructor \texttt{singleHandler}: \texttt{()}.\par
+\noindent Constructor \texttt{multiHandler}: \texttt{()}.\par
+\subsection*{\texttt{ThreadingPolicy}}
+\noindent Kind: \texttt{inductive}.\par
+\noindent Constructor \texttt{lockless}: \texttt{()}.\par
+\noindent Constructor \texttt{mutexSecured}: \texttt{()}.\par
+\subsection*{\texttt{BusTraits}}
+\noindent Kind: \texttt{structure}.\par
+\noindent Field \texttt{busId}: \texttt{Nat}.\par
+\noindent Field \texttt{addressPolicy}: \texttt{AddressPolicy}.\par
+\noindent Field \texttt{handlerPolicy}: \texttt{HandlerPolicy}.\par
+\noindent Field \texttt{threadingPolicy}: \texttt{ThreadingPolicy}.\par
+\subsection*{\texttt{HandlerRegistration}}
+\noindent Kind: \texttt{structure}.\par
+\noindent Field \texttt{handlerId}: \texttt{Nat}.\par
+\noindent Field \texttt{busId}: \texttt{Nat}.\par
+\noindent Field \texttt{priority}: \texttt{Nat}.\par
+\noindent Field \texttt{isOrderEnforced}: \texttt{Bool}.\par
+\subsection*{\texttt{systemNotificationBus}}
+\noindent Kind: \texttt{definition}.\par
+\noindent Type: \texttt{BusTraits}.\par
+\noindent Definition: \texttt{(\{ busId := 1, addressPolicy := AddressPolicy.single, handlerPolicy := HandlerPolicy.multiHandler, threadingPolicy := ThreadingPolicy.mutexSecured \} : BusTraits)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{physicsSceneRequestBus}}
+\noindent Kind: \texttt{definition}.\par
+\noindent Type: \texttt{BusTraits}.\par
+\noindent Definition: \texttt{(\{ busId := 2, addressPolicy := AddressPolicy.single, handlerPolicy := HandlerPolicy.singleHandler, threadingPolicy := ThreadingPolicy.lockless \} : BusTraits)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{canConnectHandler}}
+\noindent Kind: \texttt{definition}.\par
+\noindent Parameters: \texttt{(isSingleHandler : Bool) (currentConnectedCount : Nat)}.\par
+\noindent Type: \texttt{Bool}.\par
+\noindent Definition: \texttt{(if isSingleHandler then (Nat.beq (currentConnectedCount) (0)) else true)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{isHigherPriority}}
+\noindent Kind: \texttt{definition}.\par
+\noindent Parameters: \texttt{(prioA : Nat) (prioB : Nat)}.\par
+\noindent Type: \texttt{Bool}.\par
+\noindent Definition: \texttt{(Nat.blt (prioB) (prioA))}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{single\_handler\_permits\_first\_connection}}
+\noindent Kind: \texttt{theorem}.\par
+\noindent Statement: \texttt{(canConnectHandler (true) (0) = true)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{single\_handler\_rejects\_second\_connection}}
+\noindent Kind: \texttt{theorem}.\par
+\noindent Statement: \texttt{(canConnectHandler (true) (1) = false)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{multi\_handler\_permits\_arbitrary\_connections}}
+\noindent Kind: \texttt{theorem}.\par
+\noindent Statement: \texttt{(canConnectHandler (false) (100) = true)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{handler\_priority\_strict\_order}}
+\noindent Kind: \texttt{theorem}.\par
+\noindent Statement: \texttt{(isHigherPriority (100) (50) = true)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{handler\_priority\_equal\_false}}
+\noindent Kind: \texttt{theorem}.\par
+\noindent Statement: \texttt{(isHigherPriority (50) (50) = false)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\end{document}

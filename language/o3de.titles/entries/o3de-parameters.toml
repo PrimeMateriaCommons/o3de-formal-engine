@@ -1,0 +1,16 @@
+spec = "lexlean/entry/1"
+id = "o3de-parameters"
+category = "label-word"
+surface_arity = 0
+frame = "atom"
+
+[denotation]
+kind = "defined"
+value = "(const lexlean.std.nat::nat)"
+
+[[form]]
+id = "o3de-parameters"
+channel = "text"
+surface = "Open engine and simulation parameters"
+canonical_source = true
+features = ["sentence-case", "singular"]

@@ -1,0 +1,16 @@
+spec = "lexlean/entry/1"
+id = "o3de-ecs"
+category = "label-word"
+surface_arity = 0
+frame = "atom"
+
+[denotation]
+kind = "defined"
+value = "(const lexlean.std.nat::nat)"
+
+[[form]]
+id = "o3de-ecs"
+channel = "text"
+surface = "Open engine entity component system and dependency ordering"
+canonical_source = true
+features = ["sentence-case", "singular"]

@@ -1,0 +1,76 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\begin{document}
+\section*{Semantic declarations}
+\subsection*{\texttt{clampAccumulator}}
+\noindent Kind: \texttt{definition}.\par
+\noindent Parameters: \texttt{(accumUs : Nat) (maxAccumUs : Nat)}.\par
+\noindent Type: \texttt{Nat}.\par
+\noindent Definition: \texttt{(if (Nat.ble (accumUs) (maxAccumUs)) then accumUs else maxAccumUs)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{computeSubsteps}}
+\noindent Kind: \texttt{definition}.\par
+\noindent Parameters: \texttt{(accumUs : Nat) (fixedTimestepUs : Nat) (maxSteps : Nat)}.\par
+\noindent Type: \texttt{Nat}.\par
+\noindent Definition: \texttt{(let rawSteps : Nat := (LexLeanRuntime.quotient (accumUs) (fixedTimestepUs) (0) : Nat); (if (Nat.ble (rawSteps) (maxSteps)) then rawSteps else maxSteps))}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{computeRemainingAccumulator}}
+\noindent Kind: \texttt{definition}.\par
+\noindent Parameters: \texttt{(accumUs : Nat) (fixedTimestepUs : Nat) (substepsTaken : Nat)}.\par
+\noindent Type: \texttt{Nat}.\par
+\noindent Definition: \texttt{(LexLeanRuntime.subtract (accumUs) ((LexLeanRuntime.multiply (substepsTaken) (fixedTimestepUs) : Nat)) : Nat)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{applyVelocityDamping}}
+\noindent Kind: \texttt{definition}.\par
+\noindent Parameters: \texttt{(velScaled : Nat) (dampingScaled : Nat)}.\par
+\noindent Type: \texttt{Nat}.\par
+\noindent Definition: \texttt{(LexLeanRuntime.quotient ((LexLeanRuntime.multiply (velScaled) ((LexLeanRuntime.subtract (1000) (dampingScaled) : Nat)) : Nat)) (1000) (0) : Nat)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{isCollisionFiltered}}
+\noindent Kind: \texttt{definition}.\par
+\noindent Parameters: \texttt{(groupA : Nat) (maskA : Nat) (groupB : Nat) (maskB : Nat)}.\par
+\noindent Type: \texttt{Bool}.\par
+\noindent Definition: \texttt{(((Nat.beq (groupA) (maskB)) || (Nat.beq (maskB) (0))) \&\& ((Nat.beq (groupB) (maskA)) || (Nat.beq (maskA) (0))))}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{clamp\_accumulator\_bounded}}
+\noindent Kind: \texttt{theorem}.\par
+\noindent Statement: \texttt{(clampAccumulator (100000) (66664) = 66664)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{clamp\_accumulator\_within\_bound}}
+\noindent Kind: \texttt{theorem}.\par
+\noindent Statement: \texttt{(clampAccumulator (33332) (66664) = 33332)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{substeps\_clamped\_at\_max}}
+\noindent Kind: \texttt{theorem}.\par
+\noindent Statement: \texttt{(computeSubsteps (100000) (16666) (4) = 4)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{substeps\_exact\_two}}
+\noindent Kind: \texttt{theorem}.\par
+\noindent Statement: \texttt{(computeSubsteps (33332) (16666) (4) = 2)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{substeps\_zero\_when\_insufficient}}
+\noindent Kind: \texttt{theorem}.\par
+\noindent Statement: \texttt{(computeSubsteps (10000) (16666) (4) = 0)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{remaining\_accum\_after\_two\_steps}}
+\noindent Kind: \texttt{theorem}.\par
+\noindent Statement: \texttt{(computeRemainingAccumulator (35000) (16666) (2) = 1668)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{velocity\_damping\_strictly\_dissipative}}
+\noindent Kind: \texttt{theorem}.\par
+\noindent Statement: \texttt{(applyVelocityDamping (10000) (50) = 9500)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{velocity\_damping\_zero\_limit}}
+\noindent Kind: \texttt{theorem}.\par
+\noindent Statement: \texttt{(applyVelocityDamping (0) (50) = 0)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{collision\_filter\_symmetric}}
+\noindent Kind: \texttt{theorem}.\par
+\noindent Statement: \texttt{(isCollisionFiltered (1) (2) (2) (1) = true)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\subsection*{\texttt{collision\_filter\_wildcard}}
+\noindent Kind: \texttt{theorem}.\par
+\noindent Statement: \texttt{(isCollisionFiltered (1) (0) (2) (0) = true)}.\par
+\noindent Axiom policy: \texttt{none}.\par
+\end{document}

@@ -1,0 +1,6 @@
+{"version": "1.2.0",
+ "packagesDir": ".lake/packages",
+ "packages": [],
+ "name": "o3de_lexlean_host",
+ "lakeDir": ".lake",
+ "fixedToolchain": false}

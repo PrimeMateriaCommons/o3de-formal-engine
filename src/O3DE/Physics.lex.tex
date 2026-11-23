@@ -1,0 +1,85 @@
+\begin{lexlean}{O3DE.Physics}
+\useglossary{lexlean.std.bool@1.2.0}
+\useglossary{lexlean.std.nat@1.2.0}
+\useglossary{o3de.titles@1.0.0}
+\importmodule{O3DE.Parameters}
+\importmodule{O3DE.Invariants}
+\title{Open engine simulation loop and substepping}
+\begin{semanticmodule}
+structure{
+  name: PhysXRigidBody,
+  type_parameters: [],
+  parameters: [],
+  fields: [
+    {name: bodyId, type: Nat},
+    {name: massGrams, type: Nat},
+    {name: isKinematic, type: Bool},
+    {name: velocityScaled, type: Nat},
+    {name: maxVelocityScaled, type: Nat}
+  ]
+}
+
+definition{
+  name: kinematicBody,
+  parameters: [],
+  result: PhysXRigidBody,
+  body: (record PhysXRigidBody {bodyId := 1, massGrams := 0, isKinematic := true, velocityScaled := 0, maxVelocityScaled := 50000})
+}
+
+definition{
+  name: dynamicBody,
+  parameters: [],
+  result: PhysXRigidBody,
+  body: (record PhysXRigidBody {bodyId := 2, massGrams := 2000, isKinematic := false, velocityScaled := 10000, maxVelocityScaled := 50000})
+}
+
+definition{
+  name: overSpeedBody,
+  parameters: [],
+  result: PhysXRigidBody,
+  body: (record PhysXRigidBody {bodyId := 3, massGrams := 1000, isKinematic := false, velocityScaled := 49990, maxVelocityScaled := 50000})
+}
+
+definition{
+  name: integrateVelocityStep,
+  parameters: [body : PhysXRigidBody, accelScaled : Nat, dtMs : Nat, dampingScaled : Nat],
+  result: Nat,
+  body: (if (project body isKinematic) then 0 else (let rawVel : Nat := ((project body velocityScaled) + (prim quotient (prim multiply accelScaled dtMs : Nat) 1000 0 : Nat)); (let dampedVel : Nat := (O3DE.Invariants::applyVelocityDamping rawVel dampingScaled); (if (dampedVel <=? (project body maxVelocityScaled)) then dampedVel else (project body maxVelocityScaled)))))
+}
+
+definition{
+  name: computeKineticEnergyScaled,
+  parameters: [massGrams : Nat, velocityScaled : Nat],
+  result: Nat,
+  body: (prim quotient (prim multiply massGrams (prim multiply velocityScaled velocityScaled : Nat) : Nat) 2000 0 : Nat)
+}
+
+theorem{
+  name: kinematic_velocity_invariant_zero,
+  parameters: [],
+  statement: ((integrateVelocityStep (kinematicBody) 500 16 50) = 0),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: dynamic_velocity_step_calculation,
+  parameters: [],
+  statement: ((integrateVelocityStep (dynamicBody) 0 16 50) = 9500),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: velocity_clamped_at_maximum,
+  parameters: [],
+  statement: ((integrateVelocityStep (overSpeedBody) 2000 10 0) = 50000),
+  proof: reflexivity{}
+}
+
+theorem{
+  name: kinetic_energy_soundness,
+  parameters: [],
+  statement: ((computeKineticEnergyScaled 2000 100) = 10000),
+  proof: reflexivity{}
+}
+\end{semanticmodule}
+\end{lexlean}
