@@ -1,7 +1,7 @@
 # O3DE Formal Subsystem LexLean & PrismPM Verification Report
 
 **Status**: ✅ PASSED  
-**Execution Timestamp**: `2026-11-23T00:28:07.429474`  
+**Execution Timestamp**: `2026-11-23T09:31:19.531179`  
 **Target Directory**: [`/run/media/multiplic/AGI/prismagi/mount/SUBSYSTEMS/o3de-prism`](file:///run/media/multiplic/AGI/prismagi/mount/SUBSYSTEMS/o3de-prism)  
 **Sibling Alias**: [`/run/media/multiplic/AGI/prismagi/mount/SUBSYSTEMS/o3de-lean`](file:///run/media/multiplic/AGI/prismagi/mount/SUBSYSTEMS/o3de-lean)  
 **Original Engine Source**: [`/run/media/multiplic/AGI/prismagi/mount/SUBSYSTEMS/o3de`](file:///run/media/multiplic/AGI/prismagi/mount/SUBSYSTEMS/o3de)  
@@ -31,15 +31,15 @@
 
 | Suite ID | Test Name | Target / Command | Result | Duration |
 | :--- | :--- | :--- | :--- | :--- |
-| TS-01 | Toolchain Pin & Runtime Environment | `lean, lake, lexlean, prismpm` | ✅ PASS | 0.208s |
-| TS-02 | Lean Lake Host Build & Hygiene | `lake build` | ✅ PASS | 0.160s |
-| TS-03 | LexLean Lock Parity & Canonical Configuration | `lexlean lock --check` | ✅ PASS | 0.702s |
-| TS-04 | Semantic IR AST & Module Type Check | `lexlean check` | ✅ PASS | 0.767s |
-| TS-05 | Lean 4 Kernel Formal Verification & Attestation | `lexlean verify` | ✅ PASS | 23.887s |
-| TS-06 | Formal Mathematical Invariants & Regime Matrix Audit | `Certified Reflexivity Theorems Audit` | ✅ PASS | 0.001s |
+| TS-01 | Toolchain Pin & Runtime Environment | `lean, lake, lexlean, prismpm` | ✅ PASS | 0.657s |
+| TS-02 | Lean Lake Host Build & Hygiene | `lake build` | ✅ PASS | 0.211s |
+| TS-03 | LexLean Lock Parity & Canonical Configuration | `lexlean lock --check` | ✅ PASS | 1.024s |
+| TS-04 | Semantic IR AST & Module Type Check | `lexlean check` | ✅ PASS | 1.037s |
+| TS-05 | Lean 4 Kernel Formal Verification & Attestation | `lexlean verify` | ✅ PASS | 57.374s |
+| TS-06 | Formal Mathematical Invariants & Regime Matrix Audit | `Certified Reflexivity Theorems Audit` | ✅ PASS | 0.002s |
 | TS-07 | Build & Attestation Artifact Audit | `.lexlean/verified directory audit` | ✅ PASS | 0.001s |
-| TS-08 | PrismPM Model Framework Compilation & Production Release | `prismpm check && prismpm build` | ✅ PASS | 5.390s |
-| TS-09 | O3DE High-Scale Simulation & Stress Benchmark (INV-O3DE-a-d) | `benchmark_o3de_scaling.py` | ✅ PASS | 0.388s |
+| TS-08 | PrismPM Model Framework Compilation & Production Release | `prismpm check && prismpm build` | ✅ PASS | 10.481s |
+| TS-09 | O3DE High-Scale Simulation & Stress Benchmark (INV-O3DE-a-d) | `benchmark_o3de_scaling.py` | ✅ PASS | 0.886s |
 
 ---
 
@@ -75,9 +75,9 @@
 
 | Sub-Suite | Target Property | Invariant | Verdict | Duration |
 | :--- | :--- | :--- | :--- | :--- |
-| `SUITE-O1` | ECS Topological Dependency Resolution Scaling (N<=10000) | `INV-O3DE-a` | ✅ PASS | 0.052s |
-| `SUITE-O2` | EBus Priority Dispatch & Exclusivity (100k events) | `INV-O3DE-b` | ✅ PASS | 0.064s |
+| `SUITE-O1` | ECS Topological Dependency Resolution Scaling (N<=10000) | `INV-O3DE-a` | ✅ PASS | 0.101s |
+| `SUITE-O2` | EBus Priority Dispatch & Exclusivity (100k events) | `INV-O3DE-b` | ✅ PASS | 0.116s |
 | `SUITE-O3` | Physics Fixed Substepping & Accumulator Clamping | `INV-O3DE-c` | ✅ PASS | 0.000s |
-| `SUITE-O4` | PhysX Symplectic Energy Dissipation Monotonicity | `INV-O3DE-d` | ✅ PASS | 0.000s |
-| `SUITE-O5` | Collision Filtering Matrix Symmetry Invariant | `General` | ✅ PASS | 0.014s |
-| `SUITE-O6` | Engine Physics Simulation Throughput (500 bodies) | `General` | ✅ PASS | 0.257s |
+| `SUITE-O4` | PhysX Symplectic Energy Dissipation Monotonicity | `INV-O3DE-d` | ✅ PASS | 0.001s |
+| `SUITE-O5` | Collision Filtering Matrix Symmetry Invariant | `General` | ✅ PASS | 0.129s |
+| `SUITE-O6` | Engine Physics Simulation Throughput (500 bodies) | `General` | ✅ PASS | 0.540s |

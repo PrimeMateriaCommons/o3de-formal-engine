@@ -1,6 +1,6 @@
 {
-  "timestamp": "20261123T002807",
-  "iso_time": "2026-11-23T00:28:07.429474",
+  "timestamp": "20261123T093119",
+  "iso_time": "2026-11-23T09:31:19.531179",
   "toolchain": {
     "pinned_toolchain": "leanprover/lean4:v4.32.2",
     "lean_version": "Lean (version 4.32.2, x86_64-unknown-linux-gnu, commit f3b06c705e6c85f5314019d5d3baab0fec5b580c, Release)",
@@ -19,42 +19,42 @@
       "name": "Toolchain Pin & Runtime Environment",
       "target": "lean, lake, lexlean, prismpm",
       "status": "PASS",
-      "duration": 0.20801741300238064
+      "duration": 0.6566777800035197
     },
     {
       "id": "TS-02",
       "name": "Lean Lake Host Build & Hygiene",
       "target": "lake build",
       "status": "PASS",
-      "duration": 0.15971059000003152
+      "duration": 0.2107302780059399
     },
     {
       "id": "TS-03",
       "name": "LexLean Lock Parity & Canonical Configuration",
       "target": "lexlean lock --check",
       "status": "PASS",
-      "duration": 0.7018744439992588
+      "duration": 1.024389186000917
     },
     {
       "id": "TS-04",
       "name": "Semantic IR AST & Module Type Check",
       "target": "lexlean check",
       "status": "PASS",
-      "duration": 0.7669783070014091
+      "duration": 1.037162453008932
     },
     {
       "id": "TS-05",
       "name": "Lean 4 Kernel Formal Verification & Attestation",
       "target": "lexlean verify",
       "status": "PASS",
-      "duration": 23.887260960000276
+      "duration": 57.374341883987654
     },
     {
       "id": "TS-06",
       "name": "Formal Mathematical Invariants & Regime Matrix Audit",
       "target": "Certified Reflexivity Theorems Audit",
       "status": "PASS",
-      "duration": 0.0005873830014024861
+      "duration": 0.002417550000245683
     },
     {
       "id": "TS-07",
@@ -68,14 +68,14 @@
       "name": "PrismPM Model Framework Compilation & Production Release",
       "target": "prismpm check && prismpm build",
       "status": "PASS",
-      "duration": 5.3897786070010625
+      "duration": 10.481084469007328
     },
     {
       "id": "TS-09",
       "name": "O3DE High-Scale Simulation & Stress Benchmark (INV-O3DE-a-d)",
       "target": "benchmark_o3de_scaling.py",
       "status": "PASS",
-      "duration": 0.38759892700909404
+      "duration": 0.8863753680197988
     }
   ],
   "lexlean": {
@@ -84,14 +84,14 @@
       "stdout": "checked 9 modules (source f4472a9e74e12b50bb5565101ba34fce410c66d31a10fc2b1cae1d93d0b37182, semantic c9893861c71928dea20de8c32b4779fb26f3f11386d29cd65f35fe355ef399c7)",
       "source_hash": "f4472a9e74e12b50bb5565101ba34fce410c66d31a10fc2b1cae1d93d0b37182",
       "semantic_hash": "c9893861c71928dea20de8c32b4779fb26f3f11386d29cd65f35fe355ef399c7",
-      "duration": 0.7669783070014091
+      "duration": 1.037162453008932
     },
     "verify": {
       "status": true,
       "stdout": "verified 9 modules; attestation ea1af301ba7132fe4e65396fc2c3d2614c67a804cc3ccad6407ba9428a8ebcbc",
       "modules_verified": 9,
       "attestation": "ea1af301ba7132fe4e65396fc2c3d2614c67a804cc3ccad6407ba9428a8ebcbc",
-      "duration": 23.887260960000276
+      "duration": 57.374341883987654
     }
   },
   "formal_audit": {
@@ -227,41 +227,41 @@
     "published_hash": "f66f9f6cf4f323bb913f78ea39781c1996f8e4c99e42a62305cb37bf6a21d3f2"
   },
   "scaling_benchmark": {
-    "timestamp": "20261123T052839",
-    "iso_time": "2026-11-23T05:28:39.058071+00:00",
+    "timestamp": "20261123T143232",
+    "iso_time": "2026-11-23T14:32:32.344933+00:00",
     "all_passed": true,
-    "total_duration_s": 0.38759892700909404,
+    "total_duration_s": 0.8863753680197988,
     "suites": [
       {
         "suite_id": "SUITE-O1",
         "name": "ECS Topological Dependency Resolution Scaling (N<=10000)",
         "invariant": "INV-O3DE-a",
         "passed": true,
-        "duration_s": 0.052012567000929266,
+        "duration_s": 0.10064977800357156,
         "evaluations": [
           {
             "N": 100,
             "success_rate": 1.0,
-            "duration_s": 0.00014345700037665665,
-            "activations_per_sec": 697072.9886826214
+            "duration_s": 0.0005377189954742789,
+            "activations_per_sec": 185970.74092909438
           },
           {
             "N": 500,
             "success_rate": 1.0,
-            "duration_s": 0.000775562999479007,
-            "activations_per_sec": 644692.9525207888
+            "duration_s": 0.0028505039954325184,
+            "activations_per_sec": 175407.57732708703
           },
           {
             "N": 2000,
             "success_rate": 1.0,
-            "duration_s": 0.002908176997152623,
-            "activations_per_sec": 687716.0509687639
+            "duration_s": 0.0041785880021052435,
+            "activations_per_sec": 478630.5802324532
           },
           {
             "N": 10000,
             "success_rate": 1.0,
-            "duration_s": 0.015333278999605682,
-            "activations_per_sec": 652176.2240325221
+            "duration_s": 0.0300478440040024,
+            "activations_per_sec": 332802.57973477204
           }
         ]
       },
@@ -272,15 +272,15 @@
         "passed": true,
         "single_handler_exclusivity": true,
         "priority_order_verified": true,
-        "events_per_sec": 1553580.9162011521,
-        "duration_s": 0.06439203600166366
+        "events_per_sec": 864536.1430616317,
+        "duration_s": 0.11570709300576709
       },
       {
         "suite_id": "SUITE-O3",
         "name": "Physics Fixed Substepping & Accumulator Clamping",
         "invariant": "INV-O3DE-c",
         "passed": true,
-        "duration_s": 8.003399852896109e-05,
+        "duration_s": 0.00012925999180879444,
         "evaluations": [
           {
             "dt_frame_us": 1000,
@@ -328,22 +328,22 @@
         "final_energy_j": 0.08763166562207174,
         "monotonic": true,
         "dissipated": true,
-        "duration_s": 0.00013427100202534348
+        "duration_s": 0.0005044210120104253
       },
       {
         "suite_id": "SUITE-O5",
         "name": "Collision Filtering Matrix Symmetry Invariant",
         "passed": true,
         "evaluations": 10000,
-        "duration_s": 0.013825866000843234
+        "duration_s": 0.12923632400634233
       },
       {
         "suite_id": "SUITE-O6",
         "name": "Engine Physics Simulation Throughput (500 bodies)",
         "passed": true,
-        "frames_per_sec": 7787.979880103506,
-        "body_steps_per_sec": 3893989.940051753,
-        "duration_s": 0.2571541530051036
+        "frames_per_sec": 3713.2101336144547,
+        "body_steps_per_sec": 1856605.0668072274,
+        "duration_s": 0.5401484920002986
       }
     ]
   }
