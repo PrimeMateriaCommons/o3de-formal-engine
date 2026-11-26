@@ -5,14 +5,14 @@ Version 1.0
 Steward:    Prime Materia Commons & UOR Foundation "Citizen Gardens"
 Founder:    Ryan O. Van Gelder, Lead Multiplicity Theorist
 Registry:   Operator Atlas — uor.foundation
-Repository: https://github.com/PrimeMateria/o3de-formal-engine
+Repository: https://github.com/PrimeMateriaCommons/03de-formal-engine
 Effective:  March 2026
 Copyright:  CC BY-NC-SA 4.0 © 2024
 
 This instrument consists of three coordinate parts:
-  Part II  — The Prime Materia Covenant (Public Domain Dedication)
-  Part III — The Operator Atlas Registry Charter
-  Part VII — The Bound Works Mark License
+  Part II  — THE PRIME MATERIA COVENANT (Public Domain Dedication)
+  Part III — THE OPERATOR ATLAS REGISTRY (UOR Foundation)
+  Part VII — THE BOUND WORKS LICENSE
 
 Each Part is a legally independent instrument.
 Together, they constitute the Prime Materia License, v1.0.
@@ -30,7 +30,7 @@ Two objects may be formed from identical substrate and still constitute wholly s
 
 This License governs one such substrate: the Constitutional Core of Multiplicity Theory — a body of prime-indexed mathematical axioms, operators, and theorems that serves as foundational material for any implementation that draws upon it. The Constitutional Core belongs to everyone. What any person makes from it belongs to them. These two propositions are not in tension. They are the governing logic of everything that follows.
 
-UOR Foundation stewards this substrate not as an owner but as a custodian — maintaining the integrity of the commons, operating the registry in which declared works are permanently recorded, and issuing certification marks to implementations that have been independently verified for conformance. UOR Foundation does not own what is built from the Constitutional Core. UOR Foundation does not participate in the commercial affairs of those who build from it. UOR Foundation does not impose conditions on the use of the substrate. UOR Foundation protects three things only: the permanence of the public domain dedication, the integrity of the registry record, and the accuracy of the certification marks.
+The Prime Materia Commons stewards this substrate not as an owner but as a custodian — maintaining the integrity of the commons, operating the registry in which declared works are permanently recorded, and issuing certification marks to implementations that have been independently verified for conformance. The Prime Materia Commons does not own what is built from the Constitutional Core. The Prime Materia Commons does not participate in the commercial affairs of those who build from it. The Prime Materia Commons does not impose conditions on the use of the substrate. The Prime Materia Commons protects three things only: the permanence of the public domain dedication, the integrity of the registry record, and the accuracy of the certification marks.
 
 The reader who understands what it means to work with foundational material — who has felt the difference between the substrate and the thing made from it, who has recognized that the same material shaped for different purposes produces different objects entirely — will find in this License a familiar logic, expressed in formal terms.
 
@@ -98,7 +98,7 @@ Section 1. Defined Terms
 
 1.5  "Operator Atlas" means the permanent, publicly accessible
      registry maintained by UOR Foundation at
-     operatoratlas.citizengardens.org, in which Declarations of
+     https://uor.foundation, in which Declarations of
      Formation are received, timestamped, and archived for a minimum
      stewardship horizon of three hundred (300) years.
 
@@ -159,7 +159,7 @@ Section 1. Defined Terms
 ```
 Section 2. Irrevocable Public Domain Dedication
 
-2.1  Ryan O. Van Gelder and UOR Foundation hereby irrevocably
+2.1  Ryan O. Van Gelder and The Prime Materia Commons hereby irrevocably
      dedicate the Constitutional Core to the public domain, globally,
      in perpetuity, under the ΛProof Open Mathematical Foundation
      Pledge.
@@ -195,7 +195,7 @@ Section 2. Irrevocable Public Domain Dedication
 
 2.5  This dedication is irrevocable. It cannot be rescinded,
      modified, or superseded by any subsequent instrument, action,
-     or agreement of UOR Foundation or Ryan O. Van Gelder,
+     or agreement of The Prime Materia Commons or Ryan O. Van Gelder,
      including any future revision of this License. Future versions
      of this License may modify Parts III and VII. They may not
      diminish or condition the dedication made in this Part II.
@@ -704,13 +704,13 @@ Use case:  Enterprise deployments; regulated industry compliance;
 
 ## PART VII — THE BOUND WORKS MARK LICENSE
 
-### *Governing Use of UOR Foundation Certification Marks*
+### *Governing Use of The Prime Materia Commons Certification Marks*
 
 ```
 Section 7. Certification Mark Terms
 
 7.1  WHAT THIS PART GOVERNS. This Part VII governs one thing only:
-     the use of the Certification Marks — "UOR Foundation Verified"
+     the use of the Certification Marks — "The Prime Materia Commons Verified"
      and "OEM Certified" — which are trademarks owned by Citizen
      Gardens.
 
@@ -766,7 +766,7 @@ Section 7. Certification Mark Terms
      A Maker may operate a computational service using Constitutional
      Core mathematics without Tier III certification. What such a
      Maker may not do is represent that service as conformant,
-     certified, or verified by UOR Foundation, or use the
+     certified, or verified by The Prime Materia Commons, or use the
      Certification Marks in connection with it.
 
      The distinction is between the service (unaffected by this
@@ -776,7 +776,7 @@ Section 7. Certification Mark Terms
 7.6  MARK LICENSE GRANT. Subject to the requirements of Section 7.4
      and the applicable Certification Tier holding:
 
-     UOR Foundation grants to each Maker holding an applicable
+     The Prime Materia Commons grants to each Maker holding an applicable
      Certification Tier a limited, non-exclusive, non-transferable,
      revocable license to use the corresponding Certification Mark
      solely:
@@ -809,7 +809,7 @@ Section 7. Certification Mark Terms
      of registry operations, conformance infrastructure, and
      long-term archival stewardship.
 
-     UOR Foundation does not:
+     The Prime Materia Commons does not:
        (a)  Charge a fee for Tier I or Tier II standing
        (b)  Charge a fee as a percentage of any Maker's revenue
        (c)  Receive royalties from any Bound Work
@@ -822,7 +822,7 @@ Section 7. Certification Mark Terms
      fund subsidized certification for nonprofit and academic Makers
      and the 300-year stewardship endowment.
 
-     UOR Foundation makes the same amount regardless of whether
+     The Prime Materia Commons makes the same amount regardless of whether
      a certified Bound Work generates zero revenue or transforms
      an industry. The registry serves the commons. It is not a
      participant in the market.
@@ -895,17 +895,17 @@ Section 8. General Terms
 8.7  GOVERNING LAW AND DISPUTE RESOLUTION. This License is
      governed by the laws of [State of Incorporation of Citizen
      Gardens], without regard to conflicts-of-law principles.
-     Disputes between UOR Foundation and any Maker arising
+     Disputes between The Prime Materia Commons and any Maker arising
      under this License are subject to binding arbitration
      under the Commercial Arbitration Rules of the American
-     Arbitration Association, with venue in [City, State].
+     Arbitration Association, with venue in Wyoming, USA.
 
 8.8  CONTACT AND REGISTRY ACCESS.
      Governance inquiries:  governance@citizengardens.org
      Declaration filing:    operatoratlas.citizengardens.org/declare
      Public registry query: operatoratlas.citizengardens.org/query
      Conformance program:   citizengardens.org/conformance
-     GitHub:                github.com/MultiplicityFoundation/PIRTM
+     GitHub:                github.com/PrimeMateriaCommons/
 ```
 
 
